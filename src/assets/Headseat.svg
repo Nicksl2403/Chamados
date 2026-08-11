@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
+  <!-- Ícone de headset plano, minimalista, monocromático em branco sólido (#FFFFFF) -->
+  <g fill="#FFFFFF">
+    <!-- Haste / Tiara -->
+    <path d="M12 2A9 9 0 0 0 3 11v5a1 1 0 0 0 2 0v-5a7 7 0 0 1 14 0v5a1 1 0 0 0 2 0v-5A9 9 0 0 0 12 2z"/>
+    
+    <!-- Concha Esquerda -->
+    <rect x="2" y="10" width="4" height="8" rx="2"/>
+    
+    <!-- Concha Direita -->
+    <rect x="18" y="10" width="4" height="8" rx="2"/>
+    
+    <!-- Microfone -->
+    <path d="M20 17a1 1 0 0 0-1 1v1a2 2 0 0 1-2 2h-3a1 1 0 0 0 0 2h3a4 4 0 0 0 4-4v-1a1 1 0 0 0-1-1z"/>
+    <rect x="11" y="20" width="4" height="4" rx="1.5"/>
+  </g>
+</svg>

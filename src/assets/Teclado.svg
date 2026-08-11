@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- Borda Externa do Teclado -->
+  <rect x="6" y="10" width="36" height="28" rx="5" ry="5" fill="none" stroke="#FFFFFF" stroke-width="2" />
+
+  <!-- Grupo de Teclas -->
+  <g transform="translate(12, 15)">
+    <!-- Primeira Linha de Teclas -->
+    <rect x="0" y="0" width="4" height="4" rx="1" fill="#FFFFFF" />
+    <rect x="7" y="0" width="4" height="4" rx="1" fill="#FFFFFF" />
+    <rect x="14" y="0" width="4" height="4" rx="1" fill="#FFFFFF" />
+    <rect x="21" y="0" width="4" height="4" rx="1" fill="#FFFFFF" />
+
+    <!-- Segunda Linha de Teclas -->
+    <rect x="3.5" y="7" width="4" height="4" rx="1" fill="#FFFFFF" />
+    <rect x="10.5" y="7" width="4" height="4" rx="1" fill="#FFFFFF" />
+    <rect x="17.5" y="7" width="4" height="4" rx="1" fill="#FFFFFF" />
+
+    <!-- Barra de Espaço -->
+    <rect x="3" y="14" width="19" height="4" rx="1" fill="#FFFFFF" />
+  </g>
+</svg>
