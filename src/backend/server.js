@@ -32,6 +32,23 @@ banco.connect((erro) => {
 // ===============================
 // ADICIONAR CHAMADO
 // ===============================
+app.delete("/api/chamados/resetar", (req, res) => {
+    const sql = "TRUNCATE TABLE chamados";
+
+    banco.query(sql, (erro) => {
+        if (erro) {
+            console.error("Erro ao resetar chamados:", erro);
+
+            return res.status(500).json({
+                erro: "Erro ao resetar chamados."
+            });
+        }
+
+        res.json({
+            mensagem: "Chamados resetados com sucesso!"
+        });
+    });
+});
 
 app.post("/api/chamados", (req, res) => {
 
@@ -102,7 +119,6 @@ app.get("/api/chamados", (req, res) => {
     });
 });
 
-
 // ===============================
 // DELETAR CHAMADO
 // ===============================
@@ -145,7 +161,6 @@ app.delete("/api/chamados/:id", (req, res) => {
         });
     });
 });
-
 
 // ===============================
 // INICIAR SERVIDOR

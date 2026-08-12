@@ -45,10 +45,9 @@ function App() {
 
       const resposta = await fetch("http://localhost:3000/api/chamados", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
+            headers: {
+        "Content-Type": "application/json"
+    },
         body: JSON.stringify({
           equipamento: equipamento,
           urgencia: urgencia,
