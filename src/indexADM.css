@@ -1,36 +1,56 @@
-* {
+  * {
     box-sizing: border-box;
-}
+  }
+  body {
+    margin: 5;
+    padding: 0;
+  }
+  .tudo {
+    min-height: 98vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.admin {
-    min-height: 100vh;
+  .admin {
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 40px;
-    background: #f3f3f3;
+    width: 99%;
+    min-height: 95vh;
     font-family: Arial, sans-serif;
-    color: #222;
-}
+    background: black;
+    border-radius: 50px;
+    box-shadow:
+      0 0 8px #00ff88,
+      0 0 20px #00ff88,
+      inset 0 0 40px rgba(23, 250, 144, 0.6);
+  }
 
+  /* ========================= */
+  /* CABEÇALHO */
+  /* ========================= */
 
-/* ========================= */
-/* CABEÇALHO */
-/* ========================= */
-
-.adminHeader {
+  .adminHeader {
     max-width: 1100px;
     margin: 0 auto 30px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+  }
 
-.adminHeader h1 {
+  .adminHeader h1 {
     margin: 0;
     font-size: 30px;
     font-weight: 700;
-}
+  }
 
-.atualizar {
+  .atualizar {
     border: none;
     border-radius: 8px;
 
@@ -42,18 +62,17 @@
     font-weight: bold;
 
     cursor: pointer;
-}
+  }
 
-.atualizar:hover {
+  .atualizar:hover {
     background: #444;
-}
+  }
 
+  /* ========================= */
+  /* FORMULÁRIO */
+  /* ========================= */
 
-/* ========================= */
-/* FORMULÁRIO */
-/* ========================= */
-
-.formulario {
+  .formulario {
     max-width: 1100px;
     margin: 0 auto 35px;
 
@@ -64,31 +83,28 @@
     border-radius: 12px;
 
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-}
+  }
 
-.formulario h2 {
+  .formulario h2 {
     margin-top: 0;
     margin-bottom: 20px;
-}
+  }
 
-
-.campo {
+  .campo {
     display: flex;
     flex-direction: column;
 
     margin-bottom: 18px;
-}
+  }
 
-.campo label {
+  .campo label {
     margin-bottom: 7px;
 
     font-weight: bold;
-}
+  }
 
-
-.campo select,
-.campo textarea {
-
+  .campo select,
+  .campo textarea {
     width: 100%;
 
     padding: 11px;
@@ -100,23 +116,20 @@
     font-size: 15px;
 
     outline: none;
-}
+  }
 
-
-.campo select:focus,
-.campo textarea:focus {
+  .campo select:focus,
+  .campo textarea:focus {
     border-color: #222;
-}
+  }
 
-
-.campo textarea {
+  .campo textarea {
     min-height: 100px;
 
     resize: vertical;
-}
+  }
 
-
-.adicionar {
+  .adicionar {
     border: none;
 
     padding: 12px 20px;
@@ -130,29 +143,27 @@
     font-weight: bold;
 
     cursor: pointer;
-}
+  }
 
-.adicionar:hover {
+  .adicionar:hover {
     background: #444;
-}
+  }
 
-.adicionar:disabled {
+  .adicionar:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-}
+  }
 
+  /* ========================= */
+  /* LISTA */
+  /* ========================= */
 
-/* ========================= */
-/* LISTA */
-/* ========================= */
-
-.lista {
+  .lista {
     max-width: 1100px;
     margin: 0 auto;
-}
+  }
 
-
-.listaTitulo {
+  .listaTitulo {
     display: flex;
 
     justify-content: space-between;
@@ -160,44 +171,40 @@
     align-items: center;
 
     margin-bottom: 15px;
-}
+  }
 
-.listaTitulo h2 {
+  .listaTitulo h2 {
     margin: 0;
-}
+  }
 
-.listaTitulo span {
+  .listaTitulo span {
     color: #666;
-}
+  }
 
+  /* ========================= */
+  /* CHAMADO */
+  /* ========================= */
 
-/* ========================= */
-/* CHAMADO */
-/* ========================= */
-
-.chamados {
+  .chamados {
     display: flex;
 
     flex-direction: column;
 
     gap: 15px;
-}
+  }
 
-
-.chamado {
-
-    background: white;
+  .chamado {
+    background: rgb(66, 64, 64);
 
     border-radius: 12px;
 
     padding: 20px;
 
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
-}
+  }
 
-
-.chamadoTopo {
-
+  .chamadoTopo {
+    text-transform: capitalize;
     display: flex;
 
     align-items: center;
@@ -205,72 +212,89 @@
     gap: 12px;
 
     margin-bottom: 15px;
-}
+  }
 
-
-.chamadoTopo strong {
+  .chamadoTopo strong {
     font-size: 18px;
-}
+  }
 
-
-.urgencia,
-.status {
-
+  .urgencia,
+  .status {
     padding: 5px 10px;
 
     border-radius: 20px;
 
-    font-size: 13px;
+    font-size: 20px;
 
     font-weight: bold;
-}
+  }
 
+  .urgencia.urgente:hover {
+    transition: 0.3s;
+    color: red;
+    border: 2px solid #ff1100;
+    box-shadow:
+      0 0 8px #ff1100,
+      0 0 20px #ff3c00,
+      inset 0 0 40px rgba(250, 133, 23, 0.6);
+    background-color: transparent;
+  }
 
-.urgencia.urgente {
-    background: #ffd6d6;
-    color: #a00000;
-}
+  .urgencia.medio:hover {
+    transition: 0.3s;
+    color: rgb(216, 140, 0);
+    border: 2px solid #ff7b00;
+    box-shadow:
+      0 0 8px #ff9900,
+      0 0 20px #ffa600,
+      inset 0 0 40px rgba(250, 227, 23, 0.6);
+    background-color: transparent;
+  }
 
-.urgencia.medio {
-    background: #fff0c2;
-    color: #8a6500;
-}
+  .urgencia.leve:hover {
+    transition: 0.3s;
+    color: rgb(0, 255, 0);
+    border: 2px solid #23db0b;
+    box-shadow:
+      0 0 8px #00ff40,
+      0 0 20px #51ff00,
+      inset 0 0 40px rgba(31, 250, 23, 0.6);
+    background-color: transparent;
+  }
 
-.urgencia.leve {
-    background: #d8f5dd;
-    color: #19702b;
-}
-
-
-.status {
+  .status {
+    text-transform: capitalize;
     background: #e5e5e5;
     color: #444;
-}
-
-
-.chamadoInfo h3 {
+  }
+  .status:hover {
+    transition: 0.3s;
+    border: 2px solid #23db0b;
+    box-shadow:
+      0 0 8px #00ff40,
+      0 0 20px #51ff00,
+      inset 0 0 40px rgba(31, 250, 23, 0.6);
+  }
+  .chamadoInfo h3 {
+    text-transform: capitalize;
     margin: 0 0 8px;
 
     font-size: 18px;
-}
+  }
 
-
-.chamadoInfo p {
-
+  .chamadoInfo p {
     margin: 0;
 
-    color: #555;
+    color: #ffffff;
 
     line-height: 1.5;
-}
+  }
 
+  /* ========================= */
+  /* RODAPÉ DO CHAMADO */
+  /* ========================= */
 
-/* ========================= */
-/* RODAPÉ DO CHAMADO */
-/* ========================= */
-
-.chamadoRodape {
-
+  .chamadoRodape {
     display: flex;
 
     justify-content: space-between;
@@ -283,14 +307,12 @@
 
     border-top: 1px solid #eee;
 
-    color: #777;
+    color: #fdfdfd;
 
     font-size: 13px;
-}
+  }
 
-
-.deletar {
-
+  .deletar {
     border: none;
 
     border-radius: 7px;
@@ -304,26 +326,24 @@
     font-weight: bold;
 
     cursor: pointer;
-}
+  }
 
-.deletar:hover {
+  .deletar:hover {
     background: #b51f1f;
-}
+  }
 
+  /* ========================= */
+  /* VAZIO */
+  /* ========================= */
 
-/* ========================= */
-/* VAZIO */
-/* ========================= */
-
-.vazio {
-
+  .vazio {
     padding: 50px;
 
-    background: white;
+    background: rgb(0, 0, 0);
 
     border-radius: 12px;
 
     text-align: center;
 
-    color: #777;
-}
+    color: #ffffff;
+  }

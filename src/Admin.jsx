@@ -81,13 +81,6 @@ function Admin() {
     };
   }, []);
 
-  // ==========================================
-  // ADICIONAR CHAMADO
-  // ==========================================
-  // ==========================================
-  // DELETAR CHAMADO
-  // ==========================================
-
   async function deletar(id) {
     const confirmar = window.confirm(
       `Tem certeza que deseja deletar o chamado #${id}?`,
@@ -124,66 +117,13 @@ function Admin() {
     <div className="tudo">
       <div className="admin">
         <header className="adminHeader">
-          <button onClick={() => resetarChamados()}>Resetar IDS</button>
+          <button className="atualizar" onClick={() => resetarChamados()}>Resetar IDS</button>
           <h1>Gerenciamento de Chamados</h1>
 
           <button className="atualizar" onClick={buscarChamados}>
             Atualizar
           </button>
         </header>
-
-        {/* ================================= */}
-        {/* FORMULÁRIO DE ADICIONAR */}
-        {/* ================================= */}
-
-        <section className="formulario">
-          <h2>Adicionar chamado</h2>
-
-          <div className="campo">
-            <label>Equipamento</label>
-
-            <select
-              value={equipamento}
-              onChange={(e) => setEquipamento(e.target.value)}
-            >
-              <option value="Notebook">Notebook</option>
-              <option value="Desktop">Desktop</option>
-              <option value="Mouse">Mouse</option>
-              <option value="Teclado">Teclado</option>
-              <option value="Fone">Fone</option>
-              <option value="Celular">Celular</option>
-              <option value="Impressora">Impressora</option>
-            </select>
-          </div>
-
-          <div className="campo">
-            <label>Urgência</label>
-
-            <select
-              value={urgencia}
-              onChange={(e) => setUrgencia(e.target.value)}
-            >
-              <option value="leve">Leve</option>
-              <option value="medio">Médio</option>
-              <option value="urgente">Urgente</option>
-            </select>
-          </div>
-
-          <div className="campo">
-            <label>Descrição</label>
-
-            <textarea
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-              placeholder="Digite a descrição do problema..."
-            />
-          </div>
-        </section>
-
-        {/* ================================= */}
-        {/* LISTA DE CHAMADOS */}
-        {/* ================================= */}
-
         <section className="lista">
           <div className="listaTitulo">
             <h2>Chamados</h2>
@@ -198,18 +138,20 @@ function Admin() {
               {chamados.map((chamado) => (
                 <div className="chamado" key={chamado.id}>
                   <div className="chamadoTopo">
-                    <strong>#{chamado.id}</strong>
-
+                    <strong>ID: {chamado.id}</strong>
+                    <span><b>Urgência: </b></span>
                     <span className={`urgencia ${chamado.urgencia}`}>
                       {chamado.urgencia}
                     </span>
-
+                    <span><b>Status: </b></span>
                     <span className="status">{chamado.status}</span>
                   </div>
 
                   <div className="chamadoInfo">
-                    <h3>{chamado.equipamento}</h3>
-
+                    <h3>
+                    <span><b>Problema: </b></span>
+                    <b>{chamado.equipamento.toUpperCase()}</b></h3>
+                    <span><b>Descrição: </b></span>
                     <p>{chamado.descricao}</p>
                   </div>
 

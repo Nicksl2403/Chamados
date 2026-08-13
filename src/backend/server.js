@@ -5,20 +5,22 @@ const mysql = require("mysql2");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
 
+
+// PEGA O ARQUIVO E INTERPRETA DIREITO JA QUE ELE TINHA VIRADO UM JSON STRING //
+
+app.use(express.json());
 
 // ===============================
 // CONEXÃO COM O MYSQL
 // ===============================
-
 const banco = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "chamados"
 });
-
+// Detecta se der erro
 banco.connect((erro) => {
     if (erro) {
         console.error("Erro ao conectar no MySQL:", erro);
@@ -30,11 +32,11 @@ banco.connect((erro) => {
 
 
 // ===============================
-// ADICIONAR CHAMADO
+// RESETAR CHAMADO
 // ===============================
 app.delete("/api/chamados/resetar", (req, res) => {
     const sql = "TRUNCATE TABLE chamados";
-
+// SE ERRO PT 2
     banco.query(sql, (erro) => {
         if (erro) {
             console.error("Erro ao resetar chamados:", erro);
@@ -43,15 +45,15 @@ app.delete("/api/chamados/resetar", (req, res) => {
                 erro: "Erro ao resetar chamados."
             });
         }
-
+        //RESPOSTA QUE ELE RETORNA PRO FRONT
         res.json({
             mensagem: "Chamados resetados com sucesso!"
         });
     });
 });
-
+//ADICIONAR
 app.post("/api/chamados", (req, res) => {
-
+    //OBJETO
     const {
         equipamento,
         urgencia,
@@ -64,18 +66,18 @@ app.post("/api/chamados", (req, res) => {
             erro: "Preencha todos os campos."
         });
     }
-
+    //SEGURANÇA DO SQL
     const sql = `
         INSERT INTO chamados
         (equipamento, urgencia, descricao)
         VALUES (?, ?, ?)
     `;
-
+    // TENTAR ADICIONAR NO SQL
     banco.query(
         sql,
         [equipamento, urgencia, descricao],
         (erro, resultado) => {
-
+            //RESPOSTA AOS ERROS
             if (erro) {
                 console.error("Erro ao adicionar chamado:", erro);
 
@@ -98,13 +100,13 @@ app.post("/api/chamados", (req, res) => {
 // ===============================
 
 app.get("/api/chamados", (req, res) => {
-
+//SEGURANÇA DO SQL
     const sql = `
         SELECT *
         FROM chamados
         ORDER BY id DESC
     `;
-
+//INFORMAR ERROS
     banco.query(sql, (erro, resultados) => {
 
         if (erro) {
@@ -126,7 +128,7 @@ app.get("/api/chamados", (req, res) => {
 app.delete("/api/chamados/:id", (req, res) => {
 
     const id = Number(req.params.id);
-
+    
     // Verifica se o ID é válido
     if (!Number.isInteger(id) || id <= 0) {
         return res.status(400).json({

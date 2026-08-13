@@ -2,18 +2,61 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   padding: 0;
-  max-height: 150vh;
+  max-height: 100vh;
   background-color: rgb(136, 136, 136);
   font-family: "Inter", sans-serif;
 }
-
+.voltar {
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  top: 20px;
+  background-color: red;
+  color: rgb(0, 0, 0);
+  border: 2px solid #080808;
+  padding: 0;
+  margin : 0;
+}
+.voltar:hover {
+  border: 2px solid rgb(170, 167, 167);
+}
+.voltar:active {
+  background-color:darkred;
+}
+.logo {
+  position: absolute;
+  margin-right: 1225px;
+  margin-bottom: 475px;
+  border: 2px solid transparent;
+}
+.logo:focus {
+  outline: none;
+}
+.logo:focus-visible {
+  transition: 0.3s;
+  outline: 2px solid green;
+  outline-offset: -2px;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff88,
+    inset 0 0 40px rgba(23, 250, 144, 0.6);
+}
+.logo:hover {
+  padding: 10px;
+  transition: 0.3s;
+  border-radius: 20px;
+  border: 2px solid #00ff88;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff88,
+    inset 0 0 40px rgba(23, 250, 144, 0.6);
+}
 .fundo {
   width: 100%;
-  height: 150vh;
+  height: 100vh;
   background: black;
   display: flex;
   align-items: center;
@@ -33,6 +76,7 @@ body {
     inset 0 0 40px rgba(23, 250, 144, 0.6);
 }
 .box2 {
+  position: inherit;
   display: grid;
   grid-template-columns: repeat(4, 100px);
   grid-template-rows: repeat(2, 130px);
@@ -41,7 +85,7 @@ body {
   margin-top: 50px;
   gap: 20px;
   width: 28%;
-  height: 22%;
+  height: 34%;
   background: black;
   color: white;
   border-radius: 50px;
@@ -55,7 +99,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 15px;
   width: 100px;
   height: 120px;
   background: black;
@@ -67,15 +111,27 @@ body {
     0 0 20px #131212,
     inset 0 0 40px rgba(57, 58, 57, 0.6);
 }
+.icones1:focus {
+  outline: none;
+}
+.icones1:focus-visible {
+  transition: 0.3s;
+  outline: 2px solid green;
+  outline-offset: -2px;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff88,
+    inset 0 0 40px rgba(23, 250, 144, 0.6);
+}
 .icones1 img {
   width: 80px;
-  height: 80px;
+  height: 100px;
   object-fit: contain;
 }
 .icones1 p {
-  margin: 5px 0 0 0;
+  margin: -2px 0 0 0;
   padding: 0;
-  line-height: 20px;  
+  line-height: 20px;
   font-weight: bold;
 }
 .icones1:hover {
@@ -143,6 +199,18 @@ body {
   height: 40px;
   font-size: 25px;
   color: white;
+}
+.botao:focus {
+  outline: none;
+}
+.botao:focus-visible {
+  transition: 0.3s;
+  outline: 2px solid green;
+  outline-offset: -2px;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff88,
+    inset 0 0 40px rgba(23, 250, 144, 0.6);
 }
 .desativado {
   display: flex;
@@ -297,16 +365,29 @@ body {
   font-size: 25px;
   border-radius: 10px;
   position: inherit;
-  top: 800px;
+  top: 400px;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   align-self: center;
+  background-color: transparent;
 }
 .enviar:hover {
   transition: 0.3s;
   border: 1px solid #00ff88;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff88,
+    inset 0 0 40px rgba(23, 250, 144, 0.6);
+}
+.enviar:focus {
+  outline: none;
+}
+.enviar:focus-visible {
+  transition: 0.3s;
+  outline: 2px solid green;
+  outline-offset: -2px;
   box-shadow:
     0 0 8px #00ff88,
     0 0 20px #00ff88,
