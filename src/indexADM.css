@@ -6,7 +6,7 @@
     padding: 0;
   }
   .tudo {
-    min-height: 98vh;
+    min-height: 100vh;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -206,7 +206,7 @@
   .chamadoTopo {
     text-transform: capitalize;
     display: flex;
-
+    border: 2px solid transparent;;
     align-items: center;
 
     gap: 12px;
@@ -215,6 +215,7 @@
   }
 
   .chamadoTopo strong {
+    border: 2px solid transparent;
     font-size: 18px;
   }
 
@@ -229,7 +230,7 @@
     font-weight: bold;
   }
 
-  .urgencia.urgente:hover {
+  .urgencia:alta:hover {
     transition: 0.3s;
     color: red;
     border: 2px solid #ff1100;
@@ -250,8 +251,18 @@
       inset 0 0 40px rgba(250, 227, 23, 0.6);
     background-color: transparent;
   }
+  .urgencia.baixa {
+    border: 2px solid transparent;
+  }
+    .urgencia.medio {
+    border: 2px solid transparent;
+  }
 
-  .urgencia.leve:hover {
+    .urgencia.alta {
+    border: 2px solid transparent;
+  }
+
+  .urgencia.baixa:hover {
     transition: 0.3s;
     color: rgb(0, 255, 0);
     border: 2px solid #23db0b;
@@ -263,6 +274,7 @@
   }
 
   .status {
+    border: 2px solid transparent;
     text-transform: capitalize;
     background: #e5e5e5;
     color: #444;

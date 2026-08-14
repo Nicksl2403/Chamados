@@ -1,12 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 * {
   box-sizing: border-box;
 }
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
   padding: 0;
   max-height: 100vh;
-  background-color: rgb(136, 136, 136);
+  background-color: black;
   font-family: "Inter", sans-serif;
 }
 .voltar {
@@ -18,13 +21,14 @@ body {
   color: rgb(0, 0, 0);
   border: 2px solid #080808;
   padding: 0;
-  margin : 0;
+  margin: 0;
 }
 .voltar:hover {
   border: 2px solid rgb(170, 167, 167);
 }
 .voltar:active {
-  background-color:darkred;
+  transition: 0.1s;
+  background-color: darkred;
 }
 .logo {
   position: absolute;
@@ -57,7 +61,6 @@ body {
 .fundo {
   width: 100%;
   height: 100vh;
-  background: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,7 +71,6 @@ body {
   justify-content: center;
   width: 99%;
   height: 98%;
-  background: black;
   border-radius: 50px;
   box-shadow:
     0 0 8px #00ff88,
@@ -76,16 +78,16 @@ body {
     inset 0 0 40px rgba(23, 250, 144, 0.6);
 }
 .box2 {
-  position: inherit;
   display: grid;
+  display: flex;
   grid-template-columns: repeat(4, 100px);
   grid-template-rows: repeat(2, 130px);
   justify-content: center;
   align-items: center;
   margin-top: 50px;
   gap: 20px;
-  width: 28%;
-  height: 34%;
+  width: 22%;
+  height: 16%;
   background: black;
   color: white;
   border-radius: 50px;
@@ -94,12 +96,33 @@ body {
     0 0 20px #00ff88,
     inset 0 0 40px rgba(23, 250, 144, 0.6);
 }
+.box2.equipamento {
+  display: grid;
+  height: 32%;
+  width: 26%;
+}
+.box2.rede {
+  display: flex;
+  margin-top: 50px;
+  gap: 20px;
+  width: 28%;
+  height: 16%;
+}
+.opcoes.equipamento {
+  top: 350px;
+}
+.box2.redeProblema {
+  display: flex;
+  margin-top: 50px;
+  gap: 20px;
+  width: 28%;
+  height: 16%;
+}
 .icones1 {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  margin-top: 15px;
   width: 100px;
   height: 120px;
   background: black;
@@ -150,7 +173,7 @@ body {
 
 .opcoes {
   position: absolute;
-  top: 360px;
+  top: 200px;
   left: 0px;
   right: 0px;
   display: flex;
@@ -190,7 +213,7 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   text-align: center;
-  background-color: transparent;
+  background-color: black;
   padding: 0;
   margin: 0;
   font-weight: 700;
@@ -218,7 +241,7 @@ body {
   justify-content: center;
   border: 1px solid rgb(255, 255, 255);
   text-align: center;
-  background-color: transparent;
+  background-color: black;
   padding: 0;
   margin: 0;
   font-weight: 700;
@@ -237,7 +260,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: transparent;
+  background-color: black;
   font-weight: 700;
   line-height: 1;
   width: 580px;
@@ -247,7 +270,7 @@ body {
 }
 .botaoReset:hover {
   transition: 0.3s;
-  background-color: transparent;
+  opacity:85%;
   border: 2px solid #00ff88;
   box-shadow:
     0 0 8px #00ff88,
@@ -256,7 +279,8 @@ body {
 }
 .botao.desativado {
   transition: 0.3s;
-  background-color: transparent;
+  background-color: black;
+  opacity:85%;
   border: 2px solid #ff0000;
   box-shadow:
     0 0 8px #e01102,
@@ -265,7 +289,7 @@ body {
 }
 .botao:not(.desativado):hover {
   transition: 0.3s;
-  background-color: transparent;
+  opacity: 85%;
   border: 2px solid #00ff88;
   box-shadow:
     0 0 8px #00ff88,
@@ -281,18 +305,18 @@ body {
     0 0 8px #ff1100,
     0 0 20px #ff3c00,
     inset 0 0 40px rgba(250, 133, 23, 0.6);
-  background-color: transparent;
+    opacity:85%;
 }
 
 .medio:hover {
   transition: 0.3s;
-  color: rgb(216, 140, 0);
+  color: orangered;
   border: 2px solid #ff7b00;
   box-shadow:
     0 0 8px #ff9900,
     0 0 20px #ffa600,
     inset 0 0 40px rgba(250, 227, 23, 0.6);
-  background-color: transparent;
+    opacity:85%;
 }
 
 .leve:hover {
@@ -303,7 +327,7 @@ body {
     0 0 8px #00ff40,
     0 0 20px #51ff00,
     inset 0 0 40px rgba(31, 250, 23, 0.6);
-  background-color: transparent;
+   opacity:85%;
 }
 .desc {
   position: absolute;
@@ -326,37 +350,43 @@ body {
   vertical-align: top;
   outline: none;
   background-color: black;
+    opacity:80%;
   color: white;
   caret-color: transparent;
   resize: none;
 }
 .descInput:hover {
   transition: 0.3s;
-  border: 1px solid #00ff88;
+  border: 2px solid #00ff88;
   box-shadow:
     0 0 8px #00ff88,
     0 0 20px #00ff88,
     inset 0 0 40px rgba(23, 250, 144, 0.6);
+      opacity:100%;
 }
 .descInput::placeholder {
   transition: 0.3s;
   color: rgb(161, 160, 160);
+    opacity:100%;
 }
 .descInput:hover::placeholder {
   transition: 0.3s;
   color: white;
+    opacity:100%;
 }
 .descInput:focus::placeholder {
   transition: 0.3s;
   color: white;
+    opacity:100%;
 }
 .descInput:focus {
   transition: 0.3s;
-  border: 1px solid #00ff88;
+  border: 2px solid #00ff88;
   box-shadow:
     0 0 8px #00ff88,
     0 0 20px #00ff88,
     inset 0 0 40px rgba(23, 250, 144, 0.6);
+      opacity:100%;
 }
 .enviar {
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -364,8 +394,8 @@ body {
   height: 60px;
   font-size: 25px;
   border-radius: 10px;
-  position: inherit;
-  top: 400px;
+  position: fixed;
+  top: 800px;
   color: white;
   display: flex;
   align-items: center;
@@ -392,4 +422,17 @@ body {
     0 0 8px #00ff88,
     0 0 20px #00ff88,
     inset 0 0 40px rgba(23, 250, 144, 0.6);
+}
+body::before {
+   content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image: url("./assets/gcf-logo-02-scaled.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  opacity: 10% ;
+  z-index: -1;
+  pointer-events: none;
 }

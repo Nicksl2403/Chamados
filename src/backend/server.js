@@ -26,8 +26,6 @@ banco.connect((erro) => {
         console.error("Erro ao conectar no MySQL:", erro);
         return;
     }
-
-    console.log("MySQL conectado!");
 });
 
 
@@ -169,5 +167,4 @@ app.delete("/api/chamados/:id", (req, res) => {
 // ===============================
 
 app.listen(3000, () => {
-    console.log("Servidor rodando em http://localhost:3000");
 });
