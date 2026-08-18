@@ -25,7 +25,7 @@ import redeAviso from "./assets/wifiAviso.svg";
 // URL DO BACKEND
 // ==========================================
 
-const URL_BACKEND = "";
+const URL_BACKEND = "http://localhost:3000";
 
 function App() {
   const [focusText, setFocusText] = useState("");
@@ -242,7 +242,7 @@ function App() {
                             ? "selecionado"
                             : ""
                         }`}
-                        onClick={() => setEquipamento("Adicionar Empres")}
+                        onClick={() => setEquipamento("Adicionar Empresa")}
                       >
                         <img src={empresamais} />
 

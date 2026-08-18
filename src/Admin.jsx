@@ -5,7 +5,7 @@ import "./indexADM.css";
 // URL DO BACKEND
 // ==========================================
 
-const URL_BACKEND = "";
+const URL_BACKEND = "http://localhost:3000";
 
 
 function Admin() {
