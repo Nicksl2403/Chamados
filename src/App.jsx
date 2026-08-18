@@ -21,16 +21,13 @@ import addsite from "./assets/addsite.svg";
 import geral from "./assets/geral.svg";
 import redeAviso from "./assets/wifiAviso.svg";
 
-
 // ==========================================
 // URL DO BACKEND
 // ==========================================
 
 const URL_BACKEND = "";
 
-
 function App() {
-
   const [focusText, setFocusText] = useState("");
 
   const [urgencia, setUrgencia] = useState("");
@@ -53,83 +50,57 @@ function App() {
 
   const [PROBUS, setPROBUS] = useState(false);
 
-
   const locate = useLocation();
-
 
   // ==========================================
   // ENVIAR CHAMADO
   // ==========================================
 
   async function enviarDados() {
-
     if (!equipamento) {
-
       alert("Selecione um equipamento.");
 
       return;
     }
 
-
     if (!urgencia) {
-
       alert("Selecione a urgência.");
 
       return;
     }
 
-
     if (!descricao.trim()) {
-
       alert("Descreva o problema.");
 
       return;
     }
 
-
     try {
-
       setEnviando(true);
 
+      const resposta = await fetch(`${URL_BACKEND}/api/chamados`, {
+        method: "POST",
 
-      const resposta = await fetch(
-        `${URL_BACKEND}/api/chamados`,
-        {
-          method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            equipamento: equipamento,
-            urgencia: urgencia,
-            descricao: descricao,
-          }),
-        }
-      );
-
+        body: JSON.stringify({
+          equipamento: equipamento,
+          urgencia: urgencia,
+          descricao: descricao,
+        }),
+      });
 
       const dados = await resposta.json();
 
-
       if (!resposta.ok) {
-
-        throw new Error(
-          dados.erro || "Erro ao enviar chamado"
-        );
-
+        throw new Error(dados.erro || "Erro ao enviar chamado");
       }
-
 
       alert("Dados enviados com sucesso!");
 
-
-      console.log(
-        "Chamado criado:",
-        dados
-      );
-
+      console.log("Chamado criado:", dados);
 
       setEquipamento("");
 
@@ -138,96 +109,45 @@ function App() {
       setNecessidade(false);
 
       setDescricao("");
-
-
     } catch (erro) {
+      console.error("Erro:", erro);
 
-      console.error(
-        "Erro:",
-        erro
-      );
-
-
-      alert(
-        "Não foi possível enviar o chamado."
-      );
-
-
+      alert("Não foi possível enviar o chamado.");
     } finally {
-
       setEnviando(false);
-
     }
   }
-
 
   // ==========================================
   // ENTER PARA ENVIAR
   // ==========================================
 
   useEffect(() => {
-
     const Enter = (evento) => {
-
       if (evento.key === "Enter") {
-
         if (!enviando && !focusText) {
-
           enviarDados();
-
         }
-
       }
-
     };
 
-
-    window.addEventListener(
-      "keydown",
-      Enter
-    );
-
+    window.addEventListener("keydown", Enter);
 
     return () => {
-
-      window.removeEventListener(
-        "keydown",
-        Enter
-      );
-
+      window.removeEventListener("keydown", Enter);
     };
-
-  }, [
-    enviando,
-    equipamento,
-    urgencia,
-    descricao,
-    focusText
-  ]);
-
+  }, [enviando, equipamento, urgencia, descricao, focusText]);
 
   return (
-
     <>
-
       {locate.pathname === "/Chamados" && (
-
         <>
-
           <div className="fundo">
-
             <div className="box">
-
-              {(equipamentoAberto ||
-                redeAberto ||
-                problemaRede ||
-                PROBUS) && (
-
+              {(equipamentoAberto || redeAberto || problemaRede || PROBUS) && (
                 <button
                   className="voltar"
-
                   onClick={() => {
-
                     setEquipamentoAberto(false);
 
                     setEquipamento("");
@@ -237,111 +157,75 @@ function App() {
                     setProblemaRede(false);
 
                     setPROBUS(false);
-
                   }}
                 >
                   <b>Voltar</b>
                 </button>
-
               )}
-
 
               <div
                 className={`box2 ${
                   problemaRede
                     ? "redeProblema"
                     : redeAberto
-                    ? "rede"
-                    : equipamentoAberto
-                    ? "equipamento"
-                    : ""
+                      ? "rede"
+                      : equipamentoAberto
+                        ? "equipamento"
+                        : ""
                 }`}
               >
-
-
                 {/* =====================================
                     PROBLEMAS DE REDE
                 ====================================== */}
 
                 {problemaRede && (
-
                   <>
-
                     <button
                       className={`icones1 ${
-                        equipamento ===
-                        "Falha rede celular"
+                        equipamento === "Falha rede celular"
                           ? "selecionado"
                           : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento(
-                          "Falha rede celular"
-                        )
-                      }
+                      onClick={() => setEquipamento("Falha rede celular")}
                     >
-
                       <img src={redefalha} />
 
                       <p>
                         <b>Falha celular</b>
                       </p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento ===
-                        "Falha rede notebook"
+                        equipamento === "Falha rede notebook"
                           ? "selecionado"
                           : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento(
-                          "Falha rede notebook"
-                        )
-                      }
+                      onClick={() => setEquipamento("Falha rede notebook")}
                     >
-
                       <img src={redefalha} />
 
                       <p>
                         <b>Falha notebook</b>
                       </p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento ===
-                        "Falha rede desktop"
+                        equipamento === "Falha rede desktop"
                           ? "selecionado"
                           : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento(
-                          "Falha rede desktop"
-                        )
-                      }
+                      onClick={() => setEquipamento("Falha rede desktop")}
                     >
-
                       <img src={redefalha} />
 
                       <p>
                         <b>Falha desktop</b>
                       </p>
-
                     </button>
-
                   </>
-
                 )}
-
 
                 {/* =====================================
                     PROBUS
@@ -351,655 +235,368 @@ function App() {
                   !problemaRede &&
                   !redeAberto &&
                   !equipamentoAberto && (
-
                     <>
-
                       <button
                         className={`icones1 ${
-                          equipamento ===
-                          "Adicionar Empresa"
+                          equipamento === "Adicionar Empresa"
                             ? "selecionado"
                             : ""
                         }`}
-
-                        onClick={() =>
-                          setEquipamento(
-                            "Adicionar Empresa"
-                          )
-                        }
+                        onClick={() => setEquipamento("Adicionar Empres")}
                       >
-
                         <img src={empresamais} />
 
                         <p>
-                          <b>
-                            Adicionar empresa
-                          </b>
+                          <b>Adicionar empresa</b>
                         </p>
-
                       </button>
-
 
                       <button
                         className={`icones1 ${
-                          equipamento ===
-                          "Remover Empresa"
-                            ? "selecionado"
-                            : ""
+                          equipamento === "Remover Empresa" ? "selecionado" : ""
                         }`}
-
-                        onClick={() =>
-                          setEquipamento(
-                            "Remover Empresa"
-                          )
-                        }
+                        onClick={() => setEquipamento("Remover Empresa")}
                       >
-
                         <img src={empresamenos} />
 
                         <p>
-                          <b>
-                            Remover empresa
-                          </b>
+                          <b>Remover empresa</b>
                         </p>
-
                       </button>
-
 
                       <button
                         className={`icones1 ${
-                          equipamento ===
-                          "Problemas(PROBUS)"
+                          equipamento === "Problemas(PROBUS)"
                             ? "selecionado"
                             : ""
                         }`}
-
-                        onClick={() =>
-                          setEquipamento(
-                            "Problemas(PROBUS)"
-                          )
-                        }
+                        onClick={() => setEquipamento("Problemas(PROBUS)")}
                       >
-
                         <img src={geral} />
 
                         <p>
-                          <b>
-                            Problemas gerais
-                          </b>
+                          <b>Problemas gerais</b>
                         </p>
-
                       </button>
-
                     </>
-
                   )}
-
 
                 {/* =====================================
                     REDE
                 ====================================== */}
 
-                {redeAberto &&
-                  !problemaRede &&
-                  !PROBUS && (
+                {redeAberto && !problemaRede && !PROBUS && (
+                  <>
+                    <button
+                      className={`icones1 ${
+                        equipamento === "Conexão na rede" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setProblemaRede(true)}
+                    >
+                      <img src={redefalha} />
 
-                    <>
+                      <p>
+                        <b>Problemas de rede</b>
+                      </p>
+                    </button>
 
-                      <button
-                        className={`icones1 ${
-                          equipamento ===
-                          "Conexão na rede"
-                            ? "selecionado"
-                            : ""
-                        }`}
+                    <button
+                      className={`icones1 ${
+                        equipamento === "Adicionar Site" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setEquipamento("Adicionar Site")}
+                    >
+                      <img src={addsite} />
 
-                        onClick={() =>
-                          setProblemaRede(true)
-                        }
-                      >
+                      <p>
+                        <b>Adicionar site</b>
+                      </p>
+                    </button>
 
-                        <img src={redefalha} />
+                    <button
+                      className={`icones1 ${
+                        equipamento === "Rede Lenta" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setEquipamento("Rede Lenta")}
+                    >
+                      <img src={redeAviso} />
 
-                        <p>
-                          <b>
-                            Problemas de rede
-                          </b>
-                        </p>
-
-                      </button>
-
-
-                      <button
-                        className={`icones1 ${
-                          equipamento ===
-                          "Adicionar Site"
-                            ? "selecionado"
-                            : ""
-                        }`}
-
-                        onClick={() =>
-                          setEquipamento(
-                            "Adicionar Site"
-                          )
-                        }
-                      >
-
-                        <img src={addsite} />
-
-                        <p>
-                          <b>
-                            Adicionar site
-                          </b>
-                        </p>
-
-                      </button>
-
-
-                      <button
-                        className={`icones1 ${
-                          equipamento ===
-                          "Rede Lenta"
-                            ? "selecionado"
-                            : ""
-                        }`}
-
-                        onClick={() =>
-                          setEquipamento(
-                            "Rede Lenta"
-                          )
-                        }
-                      >
-
-                        <img src={redeAviso} />
-
-                        <p>
-                          <b>
-                            Rede lenta
-                          </b>
-                        </p>
-
-                      </button>
-
-                    </>
-
-                  )}
-
+                      <p>
+                        <b>Rede lenta</b>
+                      </p>
+                    </button>
+                  </>
+                )}
 
                 {/* =====================================
                     EQUIPAMENTOS
                 ====================================== */}
 
                 {equipamentoAberto && (
-
                   <>
-
                     <button
                       className={`icones1 ${
-                        equipamento === "mouse"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "mouse" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("mouse")
-                      }
+                      onClick={() => setEquipamento("mouse")}
                     >
-
                       <img src={mouse} />
 
                       <p>Mouse</p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento === "teclado"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "teclado" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("teclado")
-                      }
+                      onClick={() => setEquipamento("teclado")}
                     >
-
                       <img src={teclado} />
 
                       <p>Teclado</p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento === "fone"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "fone" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("fone")
-                      }
+                      onClick={() => setEquipamento("fone")}
                     >
-
                       <img src={headset} />
 
                       <p>Fone</p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento === "celular"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "celular" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("celular")
-                      }
+                      onClick={() => setEquipamento("celular")}
                     >
-
                       <img src={cell} />
 
                       <p>Celular</p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento === "impressora"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "impressora" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("impressora")
-                      }
+                      onClick={() => setEquipamento("impressora")}
                     >
-
                       <img src={impressora} />
 
                       <p>Impressora</p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento === "notebook"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "notebook" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("notebook")
-                      }
+                      onClick={() => setEquipamento("notebook")}
                     >
-
                       <img src={note} />
 
                       <p>Notebook</p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento === "desktop"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "desktop" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("desktop")
-                      }
+                      onClick={() => setEquipamento("desktop")}
                     >
-
                       <img src={desk} />
 
                       <p>Desktop</p>
-
                     </button>
-
 
                     <button
                       className={`icones1 ${
-                        equipamento === "outro"
-                          ? "selecionado"
-                          : ""
+                        equipamento === "outro" ? "selecionado" : ""
                       }`}
-
-                      onClick={() =>
-                        setEquipamento("outro")
-                      }
+                      onClick={() => setEquipamento("outro")}
                     >
-
                       <img src={outro} />
 
                       <p>Outros</p>
-
                     </button>
-
                   </>
-
                 )}
-
 
                 {/* =====================================
                     MENU PRINCIPAL
                 ====================================== */}
 
-                {!equipamentoAberto &&
-                  !redeAberto &&
-                  !PROBUS && (
+                {!equipamentoAberto && !redeAberto && !PROBUS && (
+                  <>
+                    <button
+                      className={`icones1 ${
+                        equipamento === "equipamentos" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setEquipamentoAberto(true)}
+                    >
+                      <img src={equipamentos} />
 
-                    <>
+                      <p>
+                        <b>Aparelhos</b>
+                      </p>
+                    </button>
 
-                      <button
-                        className={`icones1 ${
-                          equipamento ===
-                          "equipamentos"
-                            ? "selecionado"
-                            : ""
-                        }`}
+                    <button
+                      className={`icones1 ${
+                        equipamento === "Rede" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setRedeAberto(true)}
+                    >
+                      <img src={rede} />
 
-                        onClick={() =>
-                          setEquipamentoAberto(true)
-                        }
-                      >
+                      <p>
+                        <b>Rede</b>
+                      </p>
+                    </button>
 
-                        <img src={equipamentos} />
+                    <button
+                      className={`icones1 ${
+                        equipamento === "PROBUS" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setPROBUS(true)}
+                    >
+                      <img src={logoPROBUS} />
 
-                        <p>
-                          <b>Aparelhos</b>
-                        </p>
+                      <p>
+                        <b>ERM</b>
+                      </p>
 
-                      </button>
-
-
-                      <button
-                        className={`icones1 ${
-                          equipamento === "Rede"
-                            ? "selecionado"
-                            : ""
-                        }`}
-
-                        onClick={() =>
-                          setRedeAberto(true)
-                        }
-                      >
-
-                        <img src={rede} />
-
-                        <p>
-                          <b>Rede</b>
-                        </p>
-
-                      </button>
-
-
-                      <button
-                        className={`icones1 ${
-                          equipamento === "PROBUS"
-                            ? "selecionado"
-                            : ""
-                        }`}
-
-                        onClick={() =>
-                          setPROBUS(true)
-                        }
-                      >
-
-                        <img src={logoPROBUS} />
-
-                        <p>
-                          <b>ERM</b>
-                        </p>
-
-                        <p>
-                          <b>(PROBUS)</b>
-                        </p>
-
-                      </button>
-
-                    </>
-
-                  )}
-
+                      <p>
+                        <b>(PROBUS)</b>
+                      </p>
+                    </button>
+                  </>
+                )}
               </div>
-
             </div>
-
 
             {/* =====================================
                 OPÇÕES DE URGÊNCIA
             ====================================== */}
 
-            <div
-              className={`opcoes ${
-                equipamentoAberto
-                  ? "equipamento"
-                  : ""
-              }`}
-            >
-
+            <div className={`opcoes ${equipamentoAberto ? "equipamento" : ""}`}>
               <div className="dropdown">
-
                 <p className="dica">
-                  <b>
-                    Por favor selecione a urgência do seu caso:
-                  </b>
+                  <b>Por favor selecione a urgência do seu caso:</b>
                 </p>
 
-
                 {!aberto && (
-
                   <>
-
                     <button
-                      className={`botao ${
-                        necessidade
-                          ? "desativado"
-                          : ""
-                      }`}
-
+                      className={`botao ${necessidade ? "desativado" : ""}`}
                       onClick={() => {
-
                         if (!necessidade) {
-
                           setAberto(true);
-
                         }
-
                       }}
                     >
-
                       <b>
-
                         {urgencia
-
-                          ? urgencia
-                              .charAt(0)
-                              .toUpperCase() +
-                            urgencia.slice(1)
-
+                          ? urgencia.charAt(0).toUpperCase() + urgencia.slice(1)
                           : "Selecione"}
-
                       </b>
-
                     </button>
 
-
                     {necessidade && (
-
                       <div
                         className="botaoReset"
-
                         onClick={() => {
-
                           setNecessidade(false);
 
                           setUrgencia("");
-
                         }}
                       >
                         Reiniciar
                       </div>
-
                     )}
-
                   </>
-
                 )}
-
               </div>
 
-
               {aberto && (
-
                 <div className="menu">
-
                   <div
                     className="leve"
-
                     onClick={() => {
-
                       setAberto(false);
 
                       setUrgencia("baixa");
 
                       setNecessidade(true);
-
                     }}
                   >
-
                     <b>Baixa</b>
-
                   </div>
-
 
                   <div
                     className="medio"
-
                     onClick={() => {
-
                       setAberto(false);
 
                       setUrgencia("medio");
 
                       setNecessidade(true);
-
                     }}
                   >
-
                     <b>Médio</b>
-
                   </div>
-
 
                   <div
                     className="urgente"
-
                     onClick={() => {
-
                       setAberto(false);
 
                       setUrgencia("Alta");
 
                       setNecessidade(true);
-
                     }}
                   >
-
                     <b>Alta</b>
-
                   </div>
-
                 </div>
-
               )}
 
-
               <button
-                className={`enviar ${
-                  enviando
-                    ? "desativado"
-                    : ""
-                }`}
-
+                className={`enviar ${enviando ? "desativado" : ""}`}
                 onClick={() => {
-
                   if (!enviando) {
-
                     enviarDados();
-
                   }
-
                 }}
               >
-
-                <b>
-                  {enviando
-                    ? "Enviando..."
-                    : "Enviar"}
-                </b>
-
+                <b>{enviando ? "Enviando..." : "Enviar"}</b>
               </button>
-
             </div>
-
           </div>
-
 
           {/* =====================================
               DESCRIÇÃO
           ====================================== */}
 
           <div className="desc">
-
-            <b>
-              Descrição do problema
-            </b>
-
+            <b>Descrição do problema</b>
 
             <textarea
               className="descInput"
-
               placeholder="Descreva o problema..."
-
               rows="3"
-
               spellCheck="false"
-
               value={descricao}
-
-              onChange={(e) =>
-                setDescricao(e.target.value)
-              }
-
-              onFocus={() =>
-                setFocusText(true)
-              }
-
-              onBlur={() =>
-                setFocusText(false)
-              }
-
+              onChange={(e) => setDescricao(e.target.value)}
+              onFocus={() => setFocusText(true)}
+              onBlur={() => setFocusText(false)}
             />
-
           </div>
-
         </>
-
       )}
-
     </>
-
   );
 }
 
