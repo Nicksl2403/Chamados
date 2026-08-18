@@ -5,7 +5,7 @@ import "./indexADM.css";
 // URL DO BACKEND
 // ==========================================
 
-const URL_BACKEND = "";
+const URL_BACKEND = "postgresql://neondb_owner:npg_rqgbojUsY3X5@ep-sparkling-dawn-acqn4983-pooler.sa-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require";
 
 
 function Admin() {
