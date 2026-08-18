@@ -5,7 +5,7 @@ import "./indexADM.css";
 // URL DO BACKEND
 // ==========================================
 
-const URL_BACKEND = "COLE_A_URL_DO_SEU_BACKEND_AQUI";
+const URL_BACKEND = "";
 
 
 function Admin() {
