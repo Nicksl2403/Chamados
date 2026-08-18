@@ -149,7 +149,10 @@ function Admin() {
 
                   <div className="chamadoInfo">
                     <h3>
-                    <span><b>Problema: </b></span>
+                    <span style={{
+                    color:"black",  
+                    }}>
+                      <b>Problema: </b></span>
                     <b>{chamado.equipamento.toUpperCase()}</b></h3>
                     <span><b>Descrição: </b></span>
                     <p>{chamado.descricao}</p>

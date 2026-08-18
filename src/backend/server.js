@@ -1,95 +1,63 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
-const mysql = require("mysql2");
+const { neon } = require("@neondatabase/serverless");
 
 const app = express();
 
 app.use(cors());
-
-
-// PEGA O ARQUIVO E INTERPRETA DIREITO JA QUE ELE TINHA VIRADO UM JSON STRING //
-
 app.use(express.json());
 
 // ===============================
-// CONEXÃO COM O MYSQL
+// CONEXÃO COM O NEON POSTGRESQL
 // ===============================
-const banco = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "chamados"
-});
-// Detecta se der erro
-banco.connect((erro) => {
-    if (erro) {
-        console.error("Erro ao conectar no MySQL:", erro);
-        return;
-    }
-});
+
+const sql = neon(process.env.DATABASE_URL);
 
 
 // ===============================
-// RESETAR CHAMADO
+// ADICIONAR CHAMADO
 // ===============================
-app.delete("/api/chamados/resetar", (req, res) => {
-    const sql = "TRUNCATE TABLE chamados";
-// SE ERRO PT 2
-    banco.query(sql, (erro) => {
-        if (erro) {
-            console.error("Erro ao resetar chamados:", erro);
 
-            return res.status(500).json({
-                erro: "Erro ao resetar chamados."
-            });
-        }
-        //RESPOSTA QUE ELE RETORNA PRO FRONT
-        res.json({
-            mensagem: "Chamados resetados com sucesso!"
-        });
-    });
-});
-//ADICIONAR
-app.post("/api/chamados", (req, res) => {
-    //OBJETO
+app.post("/api/chamados", async (req, res) => {
+
     const {
         equipamento,
         urgencia,
         descricao
     } = req.body;
 
-    // Verifica se os dados necessários foram enviados
+    // Verifica se os dados foram enviados
     if (!equipamento || !urgencia || !descricao) {
         return res.status(400).json({
             erro: "Preencha todos os campos."
         });
     }
-    //SEGURANÇA DO SQL
-    const sql = `
-        INSERT INTO chamados
-        (equipamento, urgencia, descricao)
-        VALUES (?, ?, ?)
-    `;
-    // TENTAR ADICIONAR NO SQL
-    banco.query(
-        sql,
-        [equipamento, urgencia, descricao],
-        (erro, resultado) => {
-            //RESPOSTA AOS ERROS
-            if (erro) {
-                console.error("Erro ao adicionar chamado:", erro);
 
-                return res.status(500).json({
-                    erro: "Erro ao adicionar chamado."
-                });
-            }
+    try {
 
-            res.status(201).json({
-                mensagem: "Chamado adicionado com sucesso!",
-                id: resultado.insertId
-            });
-        }
-    );
+        const resultado = await sql`
+            INSERT INTO chamados
+            (equipamento, urgencia, descricao)
+            VALUES
+            (${equipamento}, ${urgencia}, ${descricao})
+            RETURNING id
+        `;
+
+        res.status(201).json({
+            mensagem: "Chamado adicionado com sucesso!",
+            id: resultado[0].id
+        });
+
+    } catch (erro) {
+
+        console.error("Erro ao adicionar chamado:", erro);
+
+        res.status(500).json({
+            erro: "Erro ao adicionar chamado."
+        });
+    }
 });
 
 
@@ -97,36 +65,37 @@ app.post("/api/chamados", (req, res) => {
 // LISTAR CHAMADOS
 // ===============================
 
-app.get("/api/chamados", (req, res) => {
-//SEGURANÇA DO SQL
-    const sql = `
-        SELECT *
-        FROM chamados
-        ORDER BY id DESC
-    `;
-//INFORMAR ERROS
-    banco.query(sql, (erro, resultados) => {
+app.get("/api/chamados", async (req, res) => {
 
-        if (erro) {
-            console.error("Erro ao buscar chamados:", erro);
+    try {
 
-            return res.status(500).json({
-                erro: "Erro ao buscar chamados."
-            });
-        }
+        const resultados = await sql`
+            SELECT *
+            FROM chamados
+            ORDER BY id DESC
+        `;
 
         res.json(resultados);
-    });
+
+    } catch (erro) {
+
+        console.error("Erro ao buscar chamados:", erro);
+
+        res.status(500).json({
+            erro: "Erro ao buscar chamados."
+        });
+    }
 });
+
 
 // ===============================
 // DELETAR CHAMADO
 // ===============================
 
-app.delete("/api/chamados/:id", (req, res) => {
+app.delete("/api/chamados/:id", async (req, res) => {
 
     const id = Number(req.params.id);
-    
+
     // Verifica se o ID é válido
     if (!Number.isInteger(id) || id <= 0) {
         return res.status(400).json({
@@ -134,23 +103,16 @@ app.delete("/api/chamados/:id", (req, res) => {
         });
     }
 
-    const sql = `
-        DELETE FROM chamados
-        WHERE id = ?
-    `;
+    try {
 
-    banco.query(sql, [id], (erro, resultado) => {
+        const resultado = await sql`
+            DELETE FROM chamados
+            WHERE id = ${id}
+            RETURNING id
+        `;
 
-        if (erro) {
-            console.error("Erro ao deletar chamado:", erro);
-
-            return res.status(500).json({
-                erro: "Erro ao deletar chamado."
-            });
-        }
-
-        // Nenhuma linha foi deletada
-        if (resultado.affectedRows === 0) {
+        // Nenhum chamado encontrado
+        if (resultado.length === 0) {
             return res.status(404).json({
                 erro: "Chamado não encontrado."
             });
@@ -159,12 +121,61 @@ app.delete("/api/chamados/:id", (req, res) => {
         res.json({
             mensagem: "Chamado deletado com sucesso!"
         });
-    });
+
+    } catch (erro) {
+
+        console.error("Erro ao deletar chamado:", erro);
+
+        res.status(500).json({
+            erro: "Erro ao deletar chamado."
+        });
+    }
 });
+
+
+// ===============================
+// RESETAR CHAMADOS
+// ===============================
+
+app.delete("/api/chamados/resetar", async (req, res) => {
+
+    try {
+
+        await sql`
+            TRUNCATE TABLE chamados RESTART IDENTITY
+        `;
+
+        res.json({
+            mensagem: "Chamados resetados com sucesso!"
+        });
+
+    } catch (erro) {
+
+        console.error("Erro ao resetar chamados:", erro);
+
+        res.status(500).json({
+            erro: "Erro ao resetar chamados."
+        });
+    }
+});
+
 
 // ===============================
 // INICIAR SERVIDOR
 // ===============================
 
-app.listen(3000, () => {
-});
+// Para testar localmente
+if (process.env.NODE_ENV !== "production") {
+
+    app.listen(3000, () => {
+        console.log("Servidor rodando em http://localhost:3000");
+    });
+
+}
+
+
+// ===============================
+// EXPORTAR PARA A VERCEL
+// ===============================
+
+module.exports = app;

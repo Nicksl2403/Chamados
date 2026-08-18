@@ -17,6 +17,9 @@ import logo from "./assets/gcf-logo-02-scaled.png";
 import logoPROBUS from "./assets/PROBUSlogo.svg";
 import empresamenos from "./assets/Empresa2.svg";
 import empresamais from "./assets/Empresa1.svg";
+import addsite from "./assets/addsite.svg";
+import geral from "./assets/geral.svg";
+import redeAviso from "./assets/wifiAviso.svg";
 
 function App() {
   const [focusText, setFocusText] = useState("");
@@ -172,9 +175,9 @@ function App() {
                     <>
                       <button
                         className={`icones1 ${
-                          equipamento === "Conexão na rede" ? "selecionado" : ""
+                          equipamento === "Adicionar Empresa" ? "selecionado" : ""
                         }`}
-                        onClick={() => setProblemaRede(true)}
+                        onClick={() => setEquipamento("Adicionar Empresa")}
                       >
                         <img src={empresamais} />
                         <p>
@@ -183,9 +186,9 @@ function App() {
                       </button>
                       <button
                         className={`icones1 ${
-                          equipamento === "Conexão na rede" ? "selecionado" : ""
+                          equipamento === "Remover Empresa" ? "selecionado" : ""
                         }`}
-                        onClick={() => setProblemaRede(true)}
+                        onClick={() => setEquipamento("Remover Empresa")}
                       >
                         <img src={empresamenos} />
                         <p>
@@ -194,11 +197,11 @@ function App() {
                       </button>
                       <button
                         className={`icones1 ${
-                          equipamento === "Conexão na rede" ? "selecionado" : ""
+                          equipamento === "Problemas(PROBUS)" ? "selecionado" : ""
                         }`}
-                        onClick={() => setProblemaRede(true)}
+                        onClick={() => setEquipamento("Problemas(PROBUS)")}
                       >
-                        <img src={redefalha} />
+                        <img src={geral} />
                         <p>
                           <b>Problemas gerais</b>
                         </p>
@@ -215,7 +218,29 @@ function App() {
                     >
                       <img src={redefalha} />
                       <p>
-                        <b>Problema de rede</b>
+                        <b>Problemas de rede</b>
+                      </p>
+                    </button>
+                     <button
+                      className={`icones1 ${
+                        equipamento === "Adicionar Site" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setEquipamento("Adicionar Site")}
+                    >
+                      <img src={addsite} />
+                      <p>
+                        <b>Adicionar site</b>
+                      </p>
+                    </button>
+                      <button
+                      className={`icones1 ${
+                        equipamento === "Rede Lenta" ? "selecionado" : ""
+                      }`}
+                      onClick={() => setEquipamento("Rede Lenta")}
+                    >
+                      <img src={redeAviso} />
+                      <p>
+                        <b>Rede lenta</b>
                       </p>
                     </button>
                   </>
@@ -440,6 +465,7 @@ function App() {
               className="descInput"
               placeholder="Descreva o problema..."
               rows="3"
+              spellCheck="false"
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
               onFocus={() => setFocusText(true)}
