@@ -1,3 +1,4 @@
-const app = require("../backend/server");
+// Dentro de api/index.js:
+const app = require('../src/backend/server.js');
 
-module.exports = app;   
+module.exports = app;
