@@ -1,11 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/api/chamados",
-      "destination": "/api/index.cjs"
-    },
-    {
-      "source": "/api/chamados/(.*)",
+      "source": "/api/(.*)",
       "destination": "/api/index.cjs"
     },
     {
@@ -13,7 +9,7 @@
       "destination": "/api/index.cjs"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
