@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+* {
+  font-family: "Inter", sans-serif;
+}
+.centralizar {
+  padding: 0;
+  margin: 0;
+  min-height: 85vh;
+  min-width: 85vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.caixa {
+border-radius: 10%;
+  display: flex;
+  width: 350px;
+  height: 350px;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #00ff88;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff88,
+    inset 0 0 40px rgba(23, 250, 144, 0.6);
+  background-color: rgb(0, 0, 0);
+}
+.caixa p {
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+.inputs {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.inputs input {
+  font-weight: bold;
+  text-align: center;
+  outline: none;
+  border: 1px solid white;
+  background-color: rgb(24, 24, 24);
+  color: white;
+  caret-color: white;
+  caret-animation: manual;
+  width: 175px;
+  height: 35px;
+}
+.inputs input:hover {
+  transition: 0.5s ease;
+  border: 1px solid #00ff88;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff88,
+    inset 0 0 40px rgba(23, 250, 144, 0.6);
+}
+.inputs input::placeholder {
+  text-align: center;
+  font-weight: bold;
+  color: lightgray;
+}
+.inputs input:focus::placeholder {
+    opacity: 0;
+}
+.caixa button {
+  border: 1px solid white;
+  background-color: rgb(24, 24, 24);
+  color: white;
+  width: 150px;
+  height: 50px;
+  font-weight: bold;
+  font-size: 20px;
+}
